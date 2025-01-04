@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 
 import { openSidebar } from "@/store/sidebarSlice";
 
-export default function Header() {
+const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const dispatch = useDispatch();
 
@@ -59,4 +59,6 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};
+
+export default Header;

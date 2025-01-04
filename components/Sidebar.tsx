@@ -11,26 +11,16 @@ import { usePathname } from "next/navigation";
 import { AppDispatch, RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { closeSidebar } from "@/store/sidebarSlice";
 
 export default function Sidebar() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
   const pathname = usePathname();
   const dispatch = useDispatch<AppDispatch>();
 
   const { isOpen } = useSelector((state: RootState) => state.sidebar);
 
-  console.log(isOpen);
   const pages = [
     { name: "Dashboard", icon: HomeIcon, href: "/" },
     { name: "Loan Management", icon: CreditCardIcon, href: "/loans" },

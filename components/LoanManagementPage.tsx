@@ -5,9 +5,7 @@ import { RootState } from "../store/store";
 import LoanManagement from "./LoanManagement";
 
 export default function LoanManagementPage() {
-  const { currentLoan, loanHistory } = useSelector(
-    (state: RootState) => state.loans
-  );
+  const { loanHistory } = useSelector((state: RootState) => state.loans);
 
   return (
     <div className="space-y-6">
