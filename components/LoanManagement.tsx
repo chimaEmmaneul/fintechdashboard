@@ -34,7 +34,7 @@ export default function LoanManagement() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl ">
+    <div className="bg-white dark:bg-gray-800  rounded-xl ">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-xl">
           <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
