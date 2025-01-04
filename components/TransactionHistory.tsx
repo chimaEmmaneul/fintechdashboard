@@ -152,15 +152,15 @@ export default function TransactionHistory() {
             {filteredAndSortedTransactions.map((transaction) => (
               <tr
                 key={transaction.id}
-                className="border-t border-gray-200 dark:border-gray-700"
+                className="border-t border-gray-200 whitespace-nowrap dark:border-gray-700"
               >
-                <td className="p-3 text-gray-800 dark:text-gray-200">
+                <td className="p-3 text-gray-800 whitespace-nowrap dark:text-gray-200">
                   {transaction.date}
                 </td>
-                <td className="p-3 text-gray-800 dark:text-gray-200">
+                <td className="p-3 text-gray-800 whitespace-nowrap dark:text-gray-200">
                   {transaction.description}
                 </td>
-                <td className="p-3 text-right text-gray-800 dark:text-gray-200">
+                <td className="p-3 text-right text-gray-800 whitespace-nowrap dark:text-gray-200">
                   ${transaction.amount.toFixed(2)}
                 </td>
                 <td className="p-3 text-center">
