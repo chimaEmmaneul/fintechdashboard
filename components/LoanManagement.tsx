@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import { requestLoan } from "../store/loansSlice";
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
+import { useForm } from "react-hook-form";
+import { LoanFormData, LoanFormSchema } from "@/schema/loanSchema";
 
 export default function LoanManagement() {
   const dispatch = useDispatch<AppDispatch>();
@@ -12,25 +15,26 @@ export default function LoanManagement() {
     (state: RootState) => state.loans.currentLoan
   );
 
-  const [loanAmount, setLoanAmount] = useState("");
-  const [loanTenure, setLoanTenure] = useState("");
-  const [loanPurpose, setLoanPurpose] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoanFormData>({
+    resolver: zodResolver(LoanFormSchema),
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleOnSubmit = (data: LoanFormData) => {
+    console.log(data, "data");
     dispatch(
       requestLoan({
-        amount: Number(loanAmount),
-        tenure: Number(loanTenure),
-        purpose: loanPurpose,
+        amount: Number(data.loanAmount),
+        tenure: Number(data.loanTenure),
+        purpose: data.loanPurpose,
         id: 0,
         startDate: "",
         status: "active",
       })
     );
-    setLoanAmount("");
-    setLoanTenure("");
-    setLoanPurpose("");
   };
 
   return (
@@ -63,7 +67,7 @@ export default function LoanManagement() {
           <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-200">
             Request New Loan
           </h3>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(handleOnSubmit)}>
             <div className="mb-4">
               <label
                 htmlFor="loanAmount"
@@ -74,11 +78,14 @@ export default function LoanManagement() {
               <input
                 type="number"
                 id="loanAmount"
-                value={loanAmount}
-                onChange={(e) => setLoanAmount(e.target.value)}
+                {...register("loanAmount")}
                 className="w-full bg-white dark:bg-gray-600 rounded-md p-2 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-500"
-                required
               />
+              {errors.loanAmount && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.loanAmount.message}
+                </p>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -90,11 +97,14 @@ export default function LoanManagement() {
               <input
                 type="number"
                 id="loanTenure"
-                value={loanTenure}
-                onChange={(e) => setLoanTenure(e.target.value)}
+                {...register("loanTenure")}
                 className="w-full bg-white dark:bg-gray-600 rounded-md p-2 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-500"
-                required
               />
+              {errors.loanTenure && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.loanTenure.message}
+                </p>
+              )}
             </div>
             <div className="mb-4">
               <label
@@ -106,11 +116,14 @@ export default function LoanManagement() {
               <input
                 type="text"
                 id="loanPurpose"
-                value={loanPurpose}
-                onChange={(e) => setLoanPurpose(e.target.value)}
+                {...register("loanPurpose")}
                 className="w-full bg-white dark:bg-gray-600 rounded-md p-2 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-500"
-                required
               />
+              {errors.loanPurpose && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.loanPurpose.message}
+                </p>
+              )}
             </div>
             <button
               type="submit"

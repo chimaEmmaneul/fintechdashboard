@@ -163,7 +163,10 @@ export default function TransactionHistory() {
                 <td className="p-3 text-right text-gray-800 whitespace-nowrap dark:text-gray-200">
                   ${transaction.amount.toFixed(2)}
                 </td>
+
                 <td className="p-3 text-center">
+                  {transaction.type === "credit" ? "Credit" : "Debit"}
+
                   {transaction.type === "credit" ? (
                     <ArrowUpIcon className="w-5 h-5 text-green-500 inline" />
                   ) : (

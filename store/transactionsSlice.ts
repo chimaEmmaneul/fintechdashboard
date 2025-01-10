@@ -1,3 +1,4 @@
+import { Transaction } from "@/types/types";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchTransactions = createAsyncThunk(
@@ -5,8 +6,7 @@ export const fetchTransactions = createAsyncThunk(
   async () => {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
     const data = await response.json();
-    console.log(data, "data");
-    return data.slice(0, 10).map((item: any) => ({
+    return data.slice(0, 10).map((item: Transaction) => ({
       id: item.id,
       date: new Date(Date.now() - Math.random() * 10000000000)
         .toISOString()
